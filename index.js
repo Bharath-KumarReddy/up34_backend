@@ -10,7 +10,24 @@ const port=3001;
 connectDB();
 
 
+app.get('/api/users', async (req,res) => {
 
+    try {
+        
+        const users = await Users.find();
+        res.status(200).json({
+            message: 'Users fetched successfully',
+            users
+         });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: 'Server error',
+            error
+        })
+    }
+})
 app.post('/api/users',async (req,res) => {
     
       try {
@@ -37,6 +54,8 @@ app.post('/api/users',async (req,res) => {
         
       }
  })
+
+
 
 
 app.listen(port ,() =>{
